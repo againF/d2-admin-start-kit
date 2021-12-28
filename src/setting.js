@@ -16,10 +16,10 @@ export default {
   page: {
     opened: [
       {
-        name: 'index',
-        fullPath: '/index',
+        name: 'website',
+        fullPath: '/website',
         meta: {
-          title: '首页',
+          title: '网站',
           auth: false
         }
       }

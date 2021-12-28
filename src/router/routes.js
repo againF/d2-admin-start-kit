@@ -1,5 +1,10 @@
 import layoutHeaderAside from '@/layout/header-aside'
-
+import {
+  website
+} from './modules/website.js';
+import {
+  finance
+} from './modules/finance.js';
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 
@@ -9,46 +14,46 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 const frameIn = [
   {
     path: '/',
-    redirect: { name: 'index' },
+    redirect: { name: 'website' },
     component: layoutHeaderAside,
     children: [
-      // 首页
-      {
-        path: 'index',
-        name: 'index',
-        meta: {
-          auth: true
-        },
-        component: _import('system/index')
-      },
-      // 演示页面
-      {
-        path: 'page1',
-        name: 'page1',
-        meta: {
-          title: '页面 1',
-          auth: true
-        },
-        component: _import('demo/page1')
-      },
-      {
-        path: 'page2',
-        name: 'page2',
-        meta: {
-          title: '页面 2',
-          auth: true
-        },
-        component: _import('demo/page2')
-      },
-      {
-        path: 'page3',
-        name: 'page3',
-        meta: {
-          title: '页面 3',
-          auth: true
-        },
-        component: _import('demo/page3')
-      },
+      // // 首页
+      // {
+      //   path: 'index',
+      //   name: 'index',
+      //   meta: {
+      //     auth: true
+      //   },
+      //   component: _import('system/index')
+      // },
+      // // 演示页面
+      // {
+      //   path: 'page1',
+      //   name: 'page1',
+      //   meta: {
+      //     title: '页面 1',
+      //     auth: true
+      //   },
+      //   component: _import('demo/page1')
+      // },
+      // {
+      //   path: 'page2',
+      //   name: 'page2',
+      //   meta: {
+      //     title: '页面 2',
+      //     auth: true
+      //   },
+      //   component: _import('demo/page2')
+      // },
+      // {
+      //   path: 'page3',
+      //   name: 'page3',
+      //   meta: {
+      //     title: '页面 3',
+      //     auth: true
+      //   },
+      //   component: _import('demo/page3')
+      // },
       // 系统 前端日志
       {
         path: 'log',
@@ -72,7 +77,9 @@ const frameIn = [
         name: 'redirect',
         hidden: true,
         component: _import('system/function/redirect')
-      }
+      },
+      ...website, // 网站
+      ...finance, // 财务
     ]
   }
 ]
@@ -82,11 +89,38 @@ const frameIn = [
  */
 const frameOut = [
   // 登录
+
   {
     path: '/login',
     name: 'login',
+    component: _import('page/login/index')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {
+      auth: true,
+      cache: true,
+      title: '注册'
+    },
+    component: _import('page/login/register')
+  },
+  {
+    path: '/chooseTeam',
+    name: 'chooseTeam',
+    meta: {
+      auth: true,
+      cache: true,
+      title: '选择团队'
+    },
+    component: _import('page/login/chooseTeam')
+  },
+  {
+    path: '/fakelogin',
+    name: 'fakelogin',
     component: _import('system/login')
-  }
+  },
+  // 登录
 ]
 
 /**
